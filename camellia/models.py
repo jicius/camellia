@@ -16,3 +16,51 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import datetime
+
+from mongoengine import (Document, StringField, DictField, DateTimeField, IntField, connect)
+
+from magnolia.config import config
+
+# 连接mongodb
+connect(
+    config.mongo_cnf.get('db'),
+    host=config.mongo_cnf.get('host'),
+    port=config.mongo_cnf.get('port'),
+    username=config.mongo_cnf.get('username'),
+    password=config.mongo_cnf.get('password')
+)
+
+
+class ProductItem(Document):
+    """ 单品数据
+
+    """
+    uid = StringField(required=True)
+    name_cn = StringField(required=True)
+    name_en = StringField(required=True)
+    stock = IntField(required=True)
+    comments_inc = IntField(required=True)
+    shop_dst = DictField(required=True)
+    on_sale = IntField(default=1)               # 1:在售; 0:下架
+    is_holiday = IntField(default=0)            # 1:节日; 0:非节日
+    time = DateTimeField(default=datetime.datetime.now)
+
+    meta = {
+        'collection': 'tf_product_item'
+    }
+
+
+class ProductMaItem(Document):
+    """ Ma 单品数据
+
+    """
+    uid = StringField(required=True)
+    name_cn = StringField(required=True)
+    name_en = StringField(required=True)
+    month_sales = IntField(required=True)
+    time = DateTimeField(default=datetime.datetime.now)
+
+    meta = {
+        'collection': 'tf_product_item_ma'
+    }
