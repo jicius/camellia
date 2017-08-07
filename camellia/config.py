@@ -15,3 +15,33 @@
 # 
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import os
+
+
+class Config:
+    project_name = 'CAMELLIA'
+
+    def __init__(self):
+        pass
+
+
+class DevelopmentConfig(Config):
+    pass
+
+
+class TestingConfig(Config):
+    pass
+
+
+class ProductionConfig(Config):
+    pass
+
+
+config_setting = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig
+}
+
+config = config_setting.get(os.getenv('ENVIRONMENT'), DevelopmentConfig)
