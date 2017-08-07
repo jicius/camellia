@@ -27,15 +27,33 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    pass
+    mongo_cnf = {
+        'username': 'guest',
+        'password': '8df12346609643d6a595faeae99e6ce0',
+        'host': '192.168.1.214',
+        'port': 37019,
+        'db': 'arbitrary'
+    }
 
 
 class TestingConfig(Config):
-    pass
+    mongo_cnf = {
+        'username': 'guest',
+        'password': '8df12346609643d6a595faeae99e6ce0',
+        'host': '192.168.1.214',
+        'port': 37019,
+        'db': 'arbitrary'
+    }
 
 
 class ProductionConfig(Config):
-    pass
+    mongo_cnf = {
+        'username': 'guest',
+        'password': '8df12346609643d6a595faeae99e6ce0',
+        'host': '127.0.0.1',
+        'port': 37019,
+        'db': 'arbitrary'
+    }
 
 
 config_setting = {
