@@ -18,7 +18,7 @@
 
 import datetime
 
-from mongoengine import (Document, StringField, DictField, DateTimeField, IntField, connect)
+from mongoengine import (Document, StringField, ListField, DateTimeField, IntField, connect)
 
 from magnolia.config import config
 
@@ -40,11 +40,10 @@ class ProductItem(Document):
     name_cn = StringField(required=True)
     name_en = StringField(required=True)
     stock = IntField(required=True)
-    comments_inc = IntField(required=True)
-    shop_dst = DictField(required=True)
+    comments_total = IntField(required=True)
+    shop_dst = ListField(required=True)
     on_sale = IntField(default=1)               # 1:在售; 0:下架
-    is_holiday = IntField(default=0)            # 1:节日; 0:非节日
-    time = DateTimeField(default=datetime.datetime.now)
+    date = DateTimeField(default=datetime.date.today())
 
     meta = {
         'collection': 'tf_product_item'
@@ -59,7 +58,7 @@ class ProductMaItem(Document):
     name_cn = StringField(required=True)
     name_en = StringField(required=True)
     month_sales = IntField(required=True)
-    time = DateTimeField(default=datetime.datetime.now)
+    date = DateTimeField(default=datetime.date.today())
 
     meta = {
         'collection': 'tf_product_item_ma'
