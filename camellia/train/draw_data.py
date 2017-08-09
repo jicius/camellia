@@ -24,7 +24,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 url = 'http://blog.topspeedsnail.com/wp-content/uploads/2016/12/铁路客运量.csv'
-ass_data = requests.get(url)
+req = requests.get(url)
+encoding = req.encoding
+result = req.text.encode(encoding=encoding)
 
-print(ass_data)
+df = pd.read_csv(io.StringIO(result.decode('utf-8')))
+
+data = np.array(df['铁路运送量_当期值(万人)'])
+
+plt.figure()
+plt.plot(data)
+plt.show()
+
 
